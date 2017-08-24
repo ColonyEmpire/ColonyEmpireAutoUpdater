@@ -172,12 +172,8 @@ namespace AutoUpdater
 
         private static async Task<string> GetNewestVersion(string path)
         {
-            var client = new HttpClient();
-            var response = await client.GetAsync(path);
-            if (response.IsSuccessStatusCode)
-                return await response.Content.ReadAsStringAsync();
-
-            return "-1";
+            var client = new WebClient();
+            return client.DownloadString(path);
         }
 
         private static void End(int code)
