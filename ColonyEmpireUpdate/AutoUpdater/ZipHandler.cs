@@ -32,7 +32,7 @@ namespace AutoUpdater
                     // Manipulate the output filename here as desired.
                     String fullZipToPath = Path.Combine(outFolder, entryFileName);
                     string directoryName = Path.GetDirectoryName(fullZipToPath);
-                    if (directoryName.Length > 0)
+                    if (!string.IsNullOrEmpty(directoryName))
                         Directory.CreateDirectory(directoryName);
 
                     // Unzip file in buffered chunks. This is just as fast as unpacking to a buffer the full size
