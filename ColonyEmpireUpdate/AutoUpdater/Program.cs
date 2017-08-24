@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using System.IO.Compression;
 
 namespace AutoUpdater
 {
@@ -12,6 +13,10 @@ namespace AutoUpdater
     {
         private static void Main()
         {
+            //Check that SharpZipLib is available
+            if (!File.Exists("ICSharpCode.SharpZipLib.dll"))
+                DownloadSharpZipLib();
+
             //Check that the file is in the right place
             CheckFileLocation();
 
@@ -43,6 +48,12 @@ namespace AutoUpdater
                 Console.ReadLine();
             }
             End(0);
+        }
+
+        private static void DownloadSharpZipLib()
+        {
+            var client = new WebClient();
+            client.DownloadFile(new Uri("https://github.com/icsharpcode/SharpZipLib/releases/download/0.86.0.518/ICSharpCode.SharpZipLib.dll"), "ICSharpCode.SharpZipLib.dll");
         }
 
         private static void PerformUpdate(int newVersion)
