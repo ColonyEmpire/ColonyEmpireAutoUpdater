@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -31,7 +28,7 @@ namespace UpdateWebService.Controllers
                 Content = new ByteArrayContent(stream.ToArray())
             };
             result.Content.Headers.ContentDisposition =
-                new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment")
+                new ContentDispositionHeaderValue("attachment")
                 {
                     FileName = "ColonyEmpire.zip"
                 };
