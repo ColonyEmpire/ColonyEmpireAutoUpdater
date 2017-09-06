@@ -13,6 +13,10 @@ namespace AutoUpdater
     {
         private static void Main()
         {
+            try
+            {
+
+            
             //Check that SharpZipLib is available
             if (!File.Exists("ICSharpCode.SharpZipLib.dll"))
                 DownloadSharpZipLib();
@@ -28,8 +32,12 @@ namespace AutoUpdater
 
 
             //Update if installed version is old
-            var currentVersion = int.Parse(version);
-            var newVersion = int.Parse(newestVersion.Result.Replace("\"", ""));
+
+
+                int currentVersion = 0;
+                int.TryParse(version, out currentVersion);
+                var newVersion = 9999;
+                int.TryParse(newestVersion.Result.Replace("\"", ""), out newVersion);
 
             if (currentVersion < newVersion)
             {
@@ -48,6 +56,15 @@ namespace AutoUpdater
                 Console.ReadLine();
             }
             End(0);
+
+            }
+            catch (Exception e)
+            {
+                File.WriteAllText("ceerror.txt", $"Error: \r\n{e.Message}\r\n\r\n\r\n\r\nStacktrace: \r\n{e.StackTrace}");
+                Console.WriteLine(e.Message);
+                Console.WriteLine("Press any button to exit, there will be a ceerror.txt next to the auto updater, send that to Crone#7029 on Discord");
+                Console.ReadKey();
+            }
         }
 
         private static void DownloadSharpZipLib()
